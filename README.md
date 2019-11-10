@@ -23,6 +23,12 @@ Add your GitHub API token as an environment variable:
 set GH_API_TOKEN={YOUR_API_TOKEN_HERE}
 ```
 
+Run the script:
+
+```
+python ghaccess.py
+```
+
 ### Linux
 
 Install PyGithub via Pip:
@@ -35,4 +41,10 @@ Add your GitHub API token as an environment variable:
 
 ```
 export GH_API_TOKEN={YOUR_API_TOKEN_HERE}
+```
+
+Run the script:
+
+```
+./ghaccess.py
 ```
