@@ -6,4 +6,4 @@ import os
 gh = Github(os.environ['GH_API_TOKEN'])
 
 for repo in gh.get_user().get_repos():
-	print repo.name
+	print(repo.name)
