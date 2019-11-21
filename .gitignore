@@ -1,2 +1,3 @@
 credentials.txt
-ec2pkey.pem
+ec2.pem
+ec2.rdp
