@@ -1,8 +1,8 @@
 use ghsocialgraph;
-drop view if exists UsersToCrawl;
+drop view if exists UsersToExplore;
 
-create view UsersToCrawl as
-	select u.`Name`
+create view UsersToExplore as
+	select u.`Username`
     from `User` u
     join UserRelationship r on r.UserId = u.Id
     where

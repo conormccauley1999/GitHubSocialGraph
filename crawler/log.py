@@ -1,8 +1,9 @@
-from constants import *
+from imports import *
 from datetime import datetime
 from enum import Enum
 
 
+# Basic enum for log statuses
 class LogStatus(Enum):
 	PASS = 1
 	INFO = 2
@@ -10,6 +11,7 @@ class LogStatus(Enum):
 	FAIL = 4
 
 
+# Convert a LogStatus enum to a string
 def getLogStatusText(status):
 	if status == LogStatus.PASS:
 		return "PASS"
@@ -23,7 +25,16 @@ def getLogStatusText(status):
 		return "????"
 
 
+# Log a message to the terminal and a text file
 def log(message, status = LogStatus.INFO):
-	output = "[%s], %s, %s\n" % (statusString, str(datetime.now()), message)
-	with open(LOG_FILE, 'a') as f:
-		f.write(output)
+
+	# Format the output string
+	output = "[%s], %s, %s" % (getLogStatusText(status), str(datetime.now()), message)
+
+	# Log to the screen
+	if LOG_TO_SCREEN:
+		print(output)
+	
+	# Log to the output file
+	if LOG_TO_FILE:
+		open(LOG_FILE, "a").write(output + "\n")

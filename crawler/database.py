@@ -1,10 +1,11 @@
-from constants import *
-from log import *
+# Imports
+from imports import *
 import mysql.connector
 
 
-def getUsersToCrawl(db):
+# Return a list of users that still need to be explored
+def getUsersToExplore(db):
 	cursor = db.cursor()
-	cursor.execute("select Name from UsersToCrawl")
+	cursor.execute(DBQ_USERS_TO_EXPLORE)
 	result = [row[0] for row in cursor.fetchall()]
 	return result
