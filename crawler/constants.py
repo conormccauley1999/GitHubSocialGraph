@@ -1,5 +1,4 @@
- # For accessing environment variables
-import os
+import os # for accessing environment variables
 
 
 # API and Database Connections
@@ -18,7 +17,7 @@ LOG_FILE		= "..\\logs\\crawler_log.txt"
 
 
 # Miscellaneous
-MAX_QUERIES = 1000
+NONE = -1
 
 
 # Database Queries

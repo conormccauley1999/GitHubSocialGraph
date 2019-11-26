@@ -1,2 +1,4 @@
-# Keep track of the number of API queries we've made so far
-queriesMade = 0
+from constants import *
+
+query_limit = NONE # API query limit
+query_usage = NONE # API queries made so far
