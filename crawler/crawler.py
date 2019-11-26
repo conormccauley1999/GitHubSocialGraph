@@ -26,6 +26,7 @@ def crawl():
 	for user in users:
 		log("Exploring user: %s" % (user.user_name), LogStatus.INFO)
 		explore_user(db, gh, user)
+		log("Explored user: %s" % (user.user_name), LogStatus.PASS)
 
 	#repos = get_repos_to_explore(db)
 	#log("Found %d repo(s) to explore" % (len(repos)), LogStatus.INFO)
@@ -33,6 +34,7 @@ def crawl():
 	#for repo in repos:
 		#log("Exploring repo: %s" % (repo.repo_name), LogStatus.INFO)
 		#explore_repo(db, gh, repo)
+		#log("Explored repo: %s" % (repo.repo_name), LogStatus.PASS)
 
 	end_rate_info = get_rate_info(gh)
 

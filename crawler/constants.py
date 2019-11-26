@@ -16,6 +16,18 @@ LOG_TO_FILE 	= False
 LOG_FILE		= "..\\logs\\crawler_log.txt"
 
 
+# Miscellaneous
+MAX_USERS	= 100
+
+
 # Database Queries
-DBQ_USERS_TO_EXPLORE 	= "select UserId, Username from UsersToExplore"
+DBQ_USERS_TO_EXPLORE 	= "select UserId, Username, UserDepth from UsersToExplore"
+DBQ_REPOS_TO_EXPLORE	= ""
+
+DBQ_GET_EXISTING_USERS 	= "select Id, Username from User"
+
 DBQ_INSERT_USER_INFO	= "insert into UserInformation (UserId, Name, Url, AvatarUrl, Company, Location, Email, Bio, RepositoryCount, FollowerCount, FollowingCount) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+DBQ_INSERT_REPO_INFO	= ""
+
+DBQ_INSERT_BLANK_USER	= "insert into User (IsExplored, Username, LastCrawled) values (false, %s, null)"
+DBQ_INSERT_BLANK_REPO	= "insert into Repository (UserId, IsExplored, Name, LastCrawled) values (%s, false, %s, null)"

@@ -10,6 +10,7 @@ create table if not exists RepositoryInformation (
     ForkCount int null,
     StarCount int null,
     WatcherCount int null,
+    Size int null,
     DateCreated timestamp not null,
     DateModified timestamp null,
     constraint FK_RepositoryInformation_Repository foreign key (RepositoryId) references Repository(Id),
