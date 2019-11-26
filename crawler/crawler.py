@@ -1,6 +1,4 @@
 from constants import *
-from globals import *
-
 from api import *
 from database import *
 from log import *
@@ -10,8 +8,7 @@ import mysql.connector
 
 
 def crawl():
-	global initial_rate_info
-
+	
 	gh = Github(API_KEY)
 	db = mysql.connector.connect(
 		host = DB_SERVER,
@@ -29,6 +26,15 @@ def crawl():
 	for user in users:
 		log("Exploring user: %s" % (user.user_name), LogStatus.INFO)
 		explore_user(db, gh, user)
+
+	#repos = get_repos_to_explore(db)
+	#log("Found %d repo(s) to explore" % (len(repos)), LogStatus.INFO)
+
+	#for repo in repos:
+		#log("Exploring repo: %s" % (repo.repo_name), LogStatus.INFO)
+		#explore_repo(db, gh, repo)
+
+	end_rate_info = get_rate_info(gh)
 
 	db.close()
 

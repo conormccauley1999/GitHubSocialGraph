@@ -1,8 +1,5 @@
-from globals import *
-
 from database import *
 from functions import *
-
 from RateInfo import *
 from UserInformation import *
 
@@ -15,13 +12,6 @@ def get_rate_info(gh):
 	rate_obj = gh.get_rate_limit()
 	time_left = get_readable_time_difference(gh.rate_limiting_resettime)	
 	return RateInfo(rate_obj, gh.rate_limiting_resettime)
-
-
-# Initialise query variables
-def init_query_limit(gh):
-	global initial_rate_info
-	initial_rate_info = get_rate_info(gh)
-	return initial_rate_info
 
 
 # Explore an individual user

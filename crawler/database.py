@@ -1,5 +1,4 @@
 from constants import *
-
 from User import *
 
 import mysql.connector
