@@ -21,4 +21,4 @@ NONE = -1
 
 
 # Database Queries
-DBQ_USERS_TO_EXPLORE 	= "select Username from UsersToExplore"
+DBQ_USERS_TO_EXPLORE 	= "select UserId, Username from UsersToExplore"

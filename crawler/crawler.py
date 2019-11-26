@@ -8,6 +8,7 @@ import mysql.connector
 
 
 def crawl():
+	global initial_rate_info
 
 	gh = Github(API_KEY)
 	db = mysql.connector.connect(
@@ -17,14 +18,14 @@ def crawl():
 		database=DB_NAME
 	)
 
-	rate_info = init_query_limit(gh)
-	log("%d/%d API queries remaining (resets in %s)" % (rate_info[0], rate_info[1], rate_info[2]), LogStatus.INFO)
+	initial_rate_info = get_rate_info(gh)
+	log("%d/%d API queries remaining (resets in %s)" % (initial_rate_info.remaining, initial_rate_info.limit, initial_rate_info.reset), LogStatus.INFO)
 
 	users = get_users_to_explore(db)
-	log("Found %s users to explore" % (len(users)), LogStatus.INFO)
+	log("Found %d user(s) to explore" % (len(users)), LogStatus.INFO)
 
 	for user in users:
-		log("Exploring user: %s" % (user), LogStatus.INFO)
+		log("Exploring user: %s" % (user.user_name), LogStatus.INFO)
 		explore_user(db, gh, user)
 
 
