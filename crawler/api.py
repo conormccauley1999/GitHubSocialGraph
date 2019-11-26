@@ -1,8 +1,11 @@
+from globals import *
+
 from database import *
 from functions import *
-from globals import *
+
 from RateInfo import *
 from UserInformation import *
+
 from github import Github
 import mysql.connector
 

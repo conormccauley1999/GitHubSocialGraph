@@ -1,6 +1,3 @@
-from functions import *
-
-
 class UserInformation:
 
 	def __init__(self, user_id, user_obj):
@@ -15,3 +12,11 @@ class UserInformation:
 		self.follower_count = user_obj.followers
 		self.following_count = user_obj.following
 		self.user_obj = user_obj # to-do: remove
+
+	
+	def get_insert_tuple(self):
+		return (
+			self.user_id, self.name, self.avatar_url, self.company,
+			self.location, self.email, self.bio, self.repository_count,
+			self.follower_count, self.following_count
+		)
