@@ -22,4 +22,4 @@ NONE = -1
 
 # Database Queries
 DBQ_USERS_TO_EXPLORE 	= "select UserId, Username from UsersToExplore"
-DBQ_INSERT_USER_INFO	= "insert into UserInformation (UserId, Name, AvatarUrl, Company, Location, Email, Bio, RepositoryCount, FollowerCount, FollowingCount) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+DBQ_INSERT_USER_INFO	= "insert into UserInformation (UserId, Name, Url, AvatarUrl, Company, Location, Email, Bio, RepositoryCount, FollowerCount, FollowingCount) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"

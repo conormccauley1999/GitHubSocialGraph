@@ -4,6 +4,7 @@ create table if not exists UserInformation (
 	Id int auto_increment primary key,
     UserId int,
     `Name` varchar(255) null,
+    Url varchar(255) null,
     AvatarUrl varchar(255) null,
     Company varchar(255) null,
     Location varchar(255) null,
