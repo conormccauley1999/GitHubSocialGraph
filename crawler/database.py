@@ -66,7 +66,10 @@ def insert_blank_repository(db, user_id, repo_name):
 
 # Insert a row into the Follow table for each pair of IDs
 def insert_follow(db, follow_id_pairs):
-	return
+	cursor = db.cursor(prepared = True)
+	cursor.executemany(DBQ_INSERT_FOLLOW, list(follow_id_pairs))
+	db.commit()
+	cursor.close()
 
 
 # Insert rows for new child users

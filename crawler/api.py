@@ -27,8 +27,8 @@ def explore_user(db, gh, user):
 	# Insert the user's own repositories
 	user_repos = user_obj.get_repos()
 	log("Found %d repo(s) for user: %s" % (user_repos.totalCount, user.user_name), LogStatus.INFO)
+	log("Inserting repo data for %d repos for user: %s" % (user_repos.totalCount, user.user_name), LogStatus.INFO)
 	for repo in user_repos:
-		log("Inserting blank row for repo: %s" % (repo.name), LogStatus.INFO)
 		insert_blank_repository(db, user.user_id, repo.name)
 
 	# Insert the user's followers and people the user is following
@@ -40,23 +40,23 @@ def explore_user(db, gh, user):
 	log("Found %d follower(s) for user: %s" % (followers.totalCount, user.user_name), LogStatus.INFO)
 
 	for follower in followers:
-		if follower.name not in existing_users:
-			insert_blank_user(db, follower.name)
-			follower_user_id = get_user_id(db, follower.name)
-			existing_users[follower.name] = follower_user_id
+		if follower.login not in existing_users:
+			insert_blank_user(db, follower.login)
+			follower_user_id = get_user_id(db, follower.login)
+			existing_users[follower.login] = follower_user_id
 			new_user_ids.add(follower_user_id)
-		follow_id_pairs.add((existing_users[follower.name], user.user_id))
+		follow_id_pairs.add((existing_users[follower.login], user.user_id))
 
 	following = user_obj.get_following()
 	log("Found %d following for user: %s" % (following.totalCount, user.user_name), LogStatus.INFO)
 
 	for followee in following:
-		if followee.name not in existing_users:
-			insert_blank_user(db, followee.name)
-			followee_user_id = get_user_id(db, followee.name)
-			existing_users[followee.name] = followee_user_id
+		if followee.login not in existing_users:
+			insert_blank_user(db, followee.login)
+			followee_user_id = get_user_id(db, followee.login)
+			existing_users[followee.login] = followee_user_id
 			new_user_ids.add(followee_user_id)
-		follow_id_pairs.add((user.user_id, existing_users[followee.name]))
+		follow_id_pairs.add((user.user_id, existing_users[followee.login]))
 
 	log("Inserting follow data for %d user pairs for user: %s" % (len(follow_id_pairs), user.user_name), LogStatus.INFO)
 	insert_follow(db, follow_id_pairs)
@@ -66,5 +66,5 @@ def explore_user(db, gh, user):
 	mark_as_children(db, user.user_id, user.user_depth, new_user_ids)
 
 	# Mark the user as explored
-	log("Marking %s as explored" % (user.user_name), LogStatus.INFO)
+	log("Marking '%s' as explored" % (user.user_name), LogStatus.INFO)
 	mark_as_explored(db, user.user_id)
