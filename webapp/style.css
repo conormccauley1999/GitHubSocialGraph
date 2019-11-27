@@ -1,0 +1,8 @@
+.nav-tabs .nav-link {
+	border-top-left-radius: .7rem !important;
+	border-top-right-radius: .7rem !important;
+}
+
+.icon-black {
+	color: black !important;
+}
