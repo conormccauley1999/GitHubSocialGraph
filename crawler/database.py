@@ -1,17 +1,26 @@
 from constants import *
+from Repository import *
 from User import *
 
 import mysql.connector
 
 
 # Return a list of users that still need to be explored
-def get_users_to_explore(db, max = MAX_USERS):
+def get_users_to_explore(db):
 	cursor = db.cursor()
 	cursor.execute(DBQ_USERS_TO_EXPLORE)
 	users = [User(row[0], row[1], row[2]) for row in cursor.fetchall()]
 	cursor.close()
-	if len(users) > MAX_USERS: users = users[:MAX_USERS]
 	return users
+
+
+# Return a list of repos that still need to be explored
+def get_repos_to_explore(db):
+	cursor = db.cursor()
+	cursor.execute(DBQ_REPOS_TO_EXPLORE)
+	repos = [Repository(row[0], row[1], row[2]) for row in cursor.fetchall()]
+	cursor.close()
+	return repos
 
 
 # Return a dictionary of existing usernames and user IDs
@@ -30,6 +39,22 @@ def get_existing_users(db):
 	return existing_users
 
 
+# Return set of existing follow pairs
+def get_existing_follow_pairs(db):
+
+	existing_follow_pairs = set()
+
+	cursor = db.cursor()
+	cursor.execute(DBQ_GET_EXISTING_FPAIRS)
+
+	for row in cursor.fetchall():
+		existing_follow_pairs.add((row[0], row[1]))
+
+	cursor.close()
+
+	return existing_follow_pairs
+
+
 # Get the ID of a specific user
 def get_user_id(db, user_name):
 	cursor = db.cursor()
@@ -44,6 +69,14 @@ def get_user_id(db, user_name):
 def insert_user_information(db, user_info):
 	cursor = db.cursor(prepared = True)
 	cursor.execute(DBQ_INSERT_USER_INFO, user_info.get_insert_tuple())
+	db.commit()
+	cursor.close()
+
+
+# Insert a new repo's information
+def insert_repo_information(db, repo_info):
+	cursor = db.cursor(prepared = True)
+	cursor.execute(DBQ_INSERT_REPO_INFO, repo_info.get_insert_tuple())
 	db.commit()
 	cursor.close()
 
@@ -84,8 +117,32 @@ def insert_children(db, parent_user_id, parent_depth, children_user_ids):
 
 
 # Mark a user as explored
-def mark_as_explored(db, user_id):
+def mark_user_as_explored(db, user_id):
 	cursor = db.cursor(prepared = True)
 	cursor.execute(DBQ_MARK_USER_EXPLORED, tuple([user_id]))
+	db.commit()
+	cursor.close()
+
+
+# Mark a repo as explored
+def mark_repo_as_explored(db, repo_id):
+	cursor = db.cursor(prepared = True)
+	cursor.execute(DBQ_MARK_REPO_EXPLORED, tuple([repo_id]))
+	db.commit()
+	cursor.close()
+
+
+# Mark a user as ignored
+def ignore_user(db, user_id):
+	cursor = db.cursor(prepared = True)
+	cursor.execute(DBQ_IGNORE_USER, tuple([user_id]))
+	db.commit()
+	cursor.close()
+
+
+# Add a row to the Crawler table
+def update_crawler(db, start_time, end_time, queries_made):
+	cursor = db.cursor(prepared = True)
+	cursor.execute(DBQ_UPDATE_CRAWLER, (start_time, end_time, queries_made))
 	db.commit()
 	cursor.close()

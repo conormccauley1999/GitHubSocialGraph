@@ -12,7 +12,6 @@ class UserInformation:
 		self.repository_count = user_obj.public_repos
 		self.follower_count = user_obj.followers
 		self.following_count = user_obj.following
-		self.user_obj = user_obj # to-do: remove
 
 	
 	def get_insert_tuple(self):

@@ -6,6 +6,7 @@ create view UsersToExplore as
     from `User` u
     join UserRelationship r on r.UserId = u.Id
     where
+		(not u.`Ignore`) and
 		(not u.IsExplored) and
         r.CurrentDepth <= GetMaxDepth()
 ;
