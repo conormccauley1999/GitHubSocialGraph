@@ -6,3 +6,7 @@
 .icon-black {
 	color: black !important;
 }
+
+.tab-pane {
+	margin: 25px !important;
+}
