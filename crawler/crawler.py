@@ -11,7 +11,7 @@ import mysql.connector
 
 def crawl():
 
-	log("CRAWLER STARTING", LogStatus.PASS)
+	log("CRAWLER STARTING", LogStatus.INFO)
 	start_time = datetime.now()
 	
 	gh = Github(API_KEY)
