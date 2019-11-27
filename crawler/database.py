@@ -73,10 +73,19 @@ def insert_follow(db, follow_id_pairs):
 
 
 # Insert rows for new child users
-def mark_as_children(db, parent_user_id, parent_depth, children_user_ids):
-	return
+def insert_children(db, parent_user_id, parent_depth, children_user_ids):
+	data = []
+	for child_user_id in children_user_ids:
+		data.append((child_user_id, parent_user_id, parent_depth + 1))
+	cursor = db.cursor(prepared = True)
+	cursor.executemany(DBQ_INSERT_CHILDREN, data)
+	db.commit()
+	cursor.close()
 
 
 # Mark a user as explored
 def mark_as_explored(db, user_id):
-	return
+	cursor = db.cursor(prepared = True)
+	cursor.execute(DBQ_MARK_USER_EXPLORED, tuple([user_id]))
+	db.commit()
+	cursor.close()

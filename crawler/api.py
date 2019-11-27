@@ -61,9 +61,9 @@ def explore_user(db, gh, user):
 	log("Inserting follow data for %d user pairs for user: %s" % (len(follow_id_pairs), user.user_name), LogStatus.INFO)
 	insert_follow(db, follow_id_pairs)
 
-	# Mark new users as children of the current user
+	# Insert new users as children of the current user
 	log("Marking %d new users as children of user: %s" % (len(new_user_ids), user.user_name), LogStatus.INFO)
-	mark_as_children(db, user.user_id, user.user_depth, new_user_ids)
+	insert_children(db, user.user_id, user.user_depth, new_user_ids)
 
 	# Mark the user as explored
 	log("Marking '%s' as explored" % (user.user_name), LogStatus.INFO)
