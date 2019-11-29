@@ -222,13 +222,48 @@ function socialGraph(dataNodes, dataLinks) {
 
 }
 
+// Update the crawler stats
+function setCrawlerStats(data) {
+    $("#crawler-stats").html(`
+        <table class="table table-sm table-borderless">
+            <tbody>
+                <tr>
+                    <td>Queries Made:</td>
+                    <td><code>${data[0].Queries}</code></td>
+                </tr>
+                <tr>
+                    <td>Users Indexed:</td>
+                    <td><code>${data[0].UsersIndexed}</code></td>
+                </tr>
+                <tr>
+                    <td>Users Explored:</td>
+                    <td><code>${data[0].UsersExplored}</code></td>
+                </tr>
+                <tr>
+                    <td>Repos Indexed:</td>
+                    <td><code>${data[0].ReposIndexed}</code></td>
+                </tr>
+                <tr>
+                    <td>Repos Explored:</td>
+                    <td><code>${data[0].ReposExplored}</code></td>
+                </tr>
+                <tr>
+                    <td>Last Crawled:</td>
+                    <td><code>${data[0].LastCrawled}</code></td>
+                </tr>
+            </tbody>
+        </table>
+    `);
+}
+
 function init() {
 
     // Remove all existing graphs
     $("svg").remove();
 
     // Create the graphs
-    //execute("select * from MostPopularUsers", mostPopularUsers, 0);
+    execute("select * from Overview_Stats", setCrawlerStats);
+    //execute("select * from MostPopularUsers", mostPopularUsers);
     executeCombine("select * from SocialGraph_Nodes", "select * from SocialGraph_Links", socialGraph);
 
 }
