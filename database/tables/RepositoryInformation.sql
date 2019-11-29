@@ -10,6 +10,7 @@ create table if not exists RepositoryInformation (
     ForkCount int null,
     StarCount int null,
     WatcherCount int null,
+    CommitCount int null,
     Size int null,
     DateCreated timestamp not null,
     DateModified timestamp null,

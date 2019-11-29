@@ -14,6 +14,8 @@ drop trigger if exists TR_UserInformation_DC;
 drop trigger if exists TR_UserInformation_DM;
 drop trigger if exists TR_RepositoryInformation_DC;
 drop trigger if exists TR_RepositoryInformation_DM;
+drop trigger if exists TR_Commit_DC;
+drop trigger if exists TR_Commit_DM;
 
 create trigger TR_User_DC before insert on `User` for each row set new.DateCreated = now();
 create trigger TR_User_DM before update on `User` for each row set new.DateModified = now();
@@ -31,3 +33,5 @@ create trigger TR_UserInformation_DC before insert on UserInformation for each r
 create trigger TR_UserInformation_DM before update on UserInformation for each row set new.DateModified = now();
 create trigger TR_RepositoryInformation_DC before insert on RepositoryInformation for each row set new.DateCreated = now();
 create trigger TR_RepositoryInformation_DM before update on RepositoryInformation for each row set new.DateModified = now();
+create trigger TR_Commit_DC before insert on `Commit` for each row set new.DateCreated = now();
+create trigger TR_Commit_DM before update on `Commit` for each row set new.DateModified = now();

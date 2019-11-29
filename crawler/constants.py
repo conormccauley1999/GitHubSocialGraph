@@ -29,7 +29,7 @@ DBQ_USERS_TO_EXPLORE 	= "select UserId, Username, UserDepth from UsersToExplore 
 DBQ_REPOS_TO_EXPLORE	= "select RepositoryId, Username, RepositoryName from RepositoriesToExplore limit %d" % (MAX_REPOS)
 
 DBQ_INSERT_USER_INFO	= "insert into UserInformation (UserId, Name, Url, AvatarUrl, Company, Location, Email, Bio, RepositoryCount, FollowerCount, FollowingCount) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-DBQ_INSERT_REPO_INFO	= "insert into RepositoryInformation (RepositoryId, FullName, Url, IsFork, Description, ForkCount, StarCount, WatcherCount, Size) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+DBQ_INSERT_REPO_INFO	= "insert into RepositoryInformation (RepositoryId, FullName, Url, IsFork, Description, ForkCount, StarCount, WatcherCount, CommitCount, Size) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
 DBQ_INSERT_BLANK_USER	= "insert into User (IsExplored, Username, LastCrawled) values (false, %s, null)"
 DBQ_INSERT_BLANK_REPO	= "insert into Repository (UserId, IsExplored, Name, LastCrawled) values (%s, false, %s, null)"
@@ -45,3 +45,5 @@ DBQ_GET_USER_ID			= "select GetUserId('%s')"
 DBQ_GET_EXISTING_USERS 	= "select Id, Username from User"
 DBQ_GET_EXISTING_FPAIRS	= "select FollowerUserId, FollowingUserId from Follow"
 DBQ_UPDATE_CRAWLER		= "insert into Crawler (StartTime, EndTime, QueriesMade) values (%s, %s, %s)"
+
+DBQ_INSERT_COMMIT		= "insert into Commit (RepositoryId, Timestamp) values(%s, %s)"

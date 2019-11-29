@@ -24,68 +24,6 @@ function executeCombine(sql1, sql2, callback) {
     );
 }
 
-// Create the 'Most Popular Users' graph
-function mostPopularUsers(data) {
-
-    var margin = {top: 10, right: 30, bottom: 30, left: 60};
-    var width = 460 - margin.left - margin.right;
-    var height = 450 - margin.top - margin.bottom;
-
-    var svg = d3.select("#most-popular-users")
-                .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
-    var x = d3.scaleLinear().domain([0, 100]).range([0, width]);
-    svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
-
-    var y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
-    svg.append("g") .call(d3.axisLeft(y));
-
-    var tooltip = d3.select("#most-popular-users")
-                    .append("div")
-                    .style("opacity", 0)
-                    .attr("class", "tooltip")
-                    .style("background-color", "white")
-                    .style("border", "solid")
-                    .style("border-width", "1px")
-                    .style("border-radius", "5px")
-                    .style("padding", "10px")
-
-    var mouseover = function(d) { tooltip.style("opacity", 1) }
-    var mousemove = function(d) {
-        tooltip
-            .html(d.Username)
-            .style("left", (d3.mouse(this)[0]+90) + "px")
-            .style("top", (d3.mouse(this)[1]) + "px")
-      }
-
-    var mouseleave = function(d) {
-      tooltip
-        .transition()
-        .duration(200)
-        .style("opacity", 0)
-    }
-
-    svg.append('g')
-        .selectAll("dot")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return x(d.Followers); } )
-        .attr("cy", function (d) { return y(d.Stars); } )
-        .attr("r", 7)
-        .style("fill", "#69b3a2")
-        .style("opacity", 0.3)
-        .style("stroke", "white")
-        .on("mouseover", mouseover )
-        .on("mousemove", mousemove )
-        .on("mouseleave", mouseleave );
-
-}
-
 // Allows nodes to be dragged in the 'Social Graph'
 function drag(simulation) {
 
@@ -256,14 +194,23 @@ function setCrawlerStats(data) {
     `);
 }
 
+
+/*function buildSelect(data) {
+
+    var sel = $("#commit-chart-form");
+    $(data).each(function() {
+        sel.append($("<option>").attr("value", this.Username).text(this.Username));
+    });
+
+}*/
+
+
 function init() {
 
-    // Remove all existing graphs
     $("svg").remove();
 
-    // Create the graphs
+    //execute("select * from CommitChart_SelectList", buildSelect);
     execute("select * from Overview_Stats", setCrawlerStats);
-    //execute("select * from MostPopularUsers", mostPopularUsers);
     executeCombine("select * from SocialGraph_Nodes", "select * from SocialGraph_Links", socialGraph);
 
 }

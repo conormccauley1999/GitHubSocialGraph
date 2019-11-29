@@ -27,42 +27,16 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#overview-tab">Overview</a>
+				<a class="nav-link active" data-toggle="tab" href="#social-graph-tab">Social Graph</a>
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="#social-graph-tab">Social Graph</a>
+				<a class="nav-link" data-toggle="tab" href="#overview-tab">Other</a>
 			</li>
 
 		</ul>
 
 		<div class="tab-content">
-
-			<div class="tab-pane container fade" id="overview-tab">
-
-				<div class="row">
-
-					<div class="col-xs-4">
-						<div class="card">
-							<div class="card-header">Crawler Stats</div>
-							<div id="crawler-stats" class="card-body"></div>
-						</div>
-					</div>
-
-					<div class="col-xs-8">
-						
-					</div>
-
-				</div>
-
-				<div class="row">
-
-					<div class="col-xs-12">
-						<div id="most-popular-users"></div>
-					</div>
-				</div>
-
-			</div>
 
 			<div class="tab-pane container active" id="social-graph-tab">
 
@@ -115,6 +89,45 @@
 					    	
 					  </div>
 					</div>
+
+				</div>
+
+			</div>
+
+			<div class="tab-pane container fade" id="overview-tab">
+
+				<div class="row">
+
+					<div class="col-xs-4">
+
+						<div class="card">
+							<div class="card-header">Crawler Stats</div>
+							<div id="crawler-stats" class="card-body"></div>
+						</div>
+
+						<!--<div class="card" style="margin-top: 15px;">
+							<div class="card-header">Select a User</div>
+							<div class="card-body">
+								<div class="form-group">
+									<select class="form-control custom-dropdown" id="commit-chart-form">
+										<option selected disabled hidden style="display: none" value=""></option>
+									</select>
+								</div> 
+							</div>
+						</div>-->
+
+					</div>
+
+					<!--<div class="col-xs-8">
+
+						<div class="card w-100" style="margin-left: 15px;">
+							<div class="card-body">
+								<h6 id="commit-chart-title" class="card-title">Select a user in the dropdown box to view their commit history</h6>
+								<div id="commit-chart"></div>	
+							</div>
+						</div>
+
+					</div>-->
 
 				</div>
 

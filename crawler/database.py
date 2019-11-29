@@ -105,6 +105,14 @@ def insert_follow(db, follow_id_pairs):
 	cursor.close()
 
 
+# Insert commits for a repository
+def insert_commits(db, commits):
+	cursor = db.cursor(prepared = True)
+	cursor.executemany(DBQ_INSERT_COMMIT, list(commits))
+	db.commit()
+	cursor.close()
+
+
 # Insert rows for new child users
 def insert_children(db, parent_user_id, parent_depth, children_user_ids):
 	data = []
