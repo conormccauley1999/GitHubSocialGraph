@@ -123,9 +123,16 @@ function socialGraph(dataNodes, dataLinks) {
     var minConnectivity = d3.min(dataNodes, function(d) { return d.Connectivity; });
     var maxConnectivity = d3.max(dataNodes, function(d) { return d.Connectivity; });
     
-    var color = function (t) {
-        return d3.interpolateYlOrRd((t + 0.0) / (maxConnectivity - minConnectivity));
+    var interpolate = function(v, range) {
+        return range[0] + ((range[1] - range[0]) * ((v + 0.0) / (maxConnectivity - minConnectivity)));
     };
+
+    var radiusRange = [8, 20];
+    var radius = function (c) { return interpolate(c, radiusRange); };
+    var colorRange = [0, 1];
+    var color = function (c) { return d3.interpolateYlOrRd(interpolate(c, colorRange)); };
+    var strengthRange = [50, 200];
+    var strength = function(c) { return -interpolate(c, strengthRange); };
 
     $("social-graph").css("top", $("#navbar").height() + "px");
     $("social-graph").height($(window).height() - $("#navbar").height());
@@ -136,8 +143,8 @@ function socialGraph(dataNodes, dataLinks) {
 
     var simulation = d3.forceSimulation(dataNodes)
         .force("link", d3.forceLink(dataLinks).id(d => d.Id))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2));
+        .force("charge", d3.forceManyBody().strength(function(d, i) { return strength(d.Connectivity); }))
+        .force("center", d3.forceCenter(width / 2, height / 3));
 
     var svg = d3.select("#social-graph").append("svg").attr("viewBox", [0, 0, width, height]);
     
@@ -155,7 +162,7 @@ function socialGraph(dataNodes, dataLinks) {
         .selectAll("circle")
         .data(dataNodes)
         .join("circle")
-        .attr("r", 10)
+        .attr("r", function(d) { return radius(d.Connectivity); })
         .attr("fill",  function(d) { return color(d.Connectivity); })
         .call(drag(simulation));
 
