@@ -1,3 +1,4 @@
+// Pass the results from a single query into a function
 function execute(sql, callback) {
     $.post(
         "query.php",
@@ -6,6 +7,7 @@ function execute(sql, callback) {
     );
 }
 
+// Pass the results of two separate queries into a function
 function executeCombine(sql1, sql2, callback) {
     $.post(
         "query.php",
@@ -22,6 +24,8 @@ function executeCombine(sql1, sql2, callback) {
     );
 }
 
+
+// Create the 'Most Popular Users' graph
 function mostPopularUsers(data, none) {
 
     var margin = {top: 10, right: 30, bottom: 30, left: 60};
@@ -83,6 +87,7 @@ function mostPopularUsers(data, none) {
 
 }
 
+// Allows nodes to be dragged in the 'Social Graph'
 function drag(simulation) {
 
     function dragstarted(d) {
@@ -109,6 +114,7 @@ function drag(simulation) {
 
 }
 
+// Create the 'Social Graph'
 function socialGraph(dataNodes, dataLinks) {
 
     // convert some strings to numbers
@@ -127,11 +133,11 @@ function socialGraph(dataNodes, dataLinks) {
         return range[0] + ((range[1] - range[0]) * ((v + 0.0) / (maxConnectivity - minConnectivity)));
     };
 
-    var radiusRange = [8, 20];
+    var radiusRange = [8, 30];
     var radius = function (c) { return interpolate(c, radiusRange); };
     var colorRange = [0, 1];
     var color = function (c) { return d3.interpolateYlOrRd(interpolate(c, colorRange)); };
-    var strengthRange = [50, 200];
+    var strengthRange = [80, 200];
     var strength = function(c) { return -interpolate(c, strengthRange); };
 
     $("social-graph").css("top", $("#navbar").height() + "px");
@@ -181,6 +187,16 @@ function socialGraph(dataNodes, dataLinks) {
 
 }
 
-//execute("select * from MostPopularUsers", mostPopularUsers, 0);
-executeCombine("select * from SocialGraph_Nodes", "select * from SocialGraph_Links", socialGraph);
+function init() {
 
+    // Remove all existing graphs
+    $("svg").remove();
+
+    // Create the graphs
+    //execute("select * from MostPopularUsers", mostPopularUsers, 0);
+    executeCombine("select * from SocialGraph_Nodes", "select * from SocialGraph_Links", socialGraph);
+
+}
+
+$(window).resize(function() { init(); }); // recreate graphs on resize
+init(); // initial creation of graphs
