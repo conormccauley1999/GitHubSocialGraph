@@ -85,43 +85,47 @@ function mostPopularUsers(data, none) {
 
 function drag(simulation) {
 
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
   
-  function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
   
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
   
-  return d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
 
 }
 
 function socialGraph(dataNodes, dataLinks) {
 
-    // convert to numbers
+    // convert some strings to numbers
     dataLinks.forEach(function(d) {
         d.source = +d.source;
         d.target = +d.target;
     });
+    dataNodes.forEach(function(d) {
+        d.Connectivity = +d.Connectivity;
+    })
 
-    var minConnectivity = d3.min(dataNodes, function(d) { return (+d.Followers + +d.Following); });
-    var maxConnectivity = d3.max(dataNodes, function(d) { return (+d.Followers + +d.Following); });
-
-    var color = d3.scaleQuantize().range(["rgb(237,248,233)","rgb(186,228,179)","rgb(116,196,118)","rgb(49,163,84)","rgb(0,109,44)"]);
-    color.domain([minConnectivity, maxConnectivity]);
+    var minConnectivity = d3.min(dataNodes, function(d) { return d.Connectivity; });
+    var maxConnectivity = d3.max(dataNodes, function(d) { return d.Connectivity; });
+    
+    var color = function (t) {
+        return d3.interpolateYlOrRd((t + 0.0) / (maxConnectivity - minConnectivity));
+    };
 
     $("social-graph").css("top", $("#navbar").height() + "px");
     $("social-graph").height($(window).height() - $("#navbar").height());
@@ -129,8 +133,6 @@ function socialGraph(dataNodes, dataLinks) {
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var width = $("#social-graph").width();
     var height = $("#social-graph").height();
-
-    var RADIUS = 15;
 
     var simulation = d3.forceSimulation(dataNodes)
         .force("link", d3.forceLink(dataLinks).id(d => d.Id))
@@ -154,7 +156,7 @@ function socialGraph(dataNodes, dataLinks) {
         .data(dataNodes)
         .join("circle")
         .attr("r", 10)
-        .attr("fill",  function(d) { color(+d.Followers + +d.Following); })
+        .attr("fill",  function(d) { return color(d.Connectivity); })
         .call(drag(simulation));
 
     node.append("title").text(d => d.Username);
