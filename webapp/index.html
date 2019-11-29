@@ -11,13 +11,14 @@
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
 
+		<script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="https://kit.fontawesome.com/c14e8b115b.js" crossorigin="anonymous"></script>
 
 	</head>
 
 	<body>
 
-		<ul style="padding-top: 15px;" class="nav nav-tabs bg-light">
+		<ul id="navbar" style="padding-top: 15px;" class="nav nav-tabs bg-light">
 
 			<li class="nav-item">
 				<a class="nav-link" target="_blank" href="https://github.com/conormccauley1999/GitHubSocialGraph">
@@ -26,31 +27,35 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="#overview">Overview</a>
+				<a class="nav-link active" data-toggle="tab" href="#social-graph-tab">Social Graph</a>
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#stars">Stars</a>
+				<a class="nav-link" data-toggle="tab" href="#overview-tab">Overview</a>
 			</li>
 
 		</ul>
 
 		<div class="tab-content">
 
-			<div class="tab-pane container active" id="overview">
-				...
+			<div class="tab-pane container active" id="social-graph-tab">
+				<div id="social-graph"></div>
 			</div>
 
-			<div class="tab-pane container fade" id="stars">
-				...
+			<div class="tab-pane container fade" id="overview-tab">
+				<div class="row">
+					<div class="col">
+						<div id="most-popular-users"></div>
+					</div>
+				</div>
 			</div>
 
 		</div>
 
-		<script src="https://d3js.org/d3.v5.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    	<script src="script.js"></script>
 
 	</body>
 

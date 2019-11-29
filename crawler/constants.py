@@ -17,11 +17,11 @@ LOG_FILE		= "..\\logs\\crawler_log.txt"
 
 
 # Miscellaneous
-MAX_USERS		= 10
-MAX_REPOS		= 50
-MAX_USER_REPOS	= 50
-MAX_FOLLOWERS	= 50
-MAX_FOLLOWEES 	= 50
+MAX_USERS		= 30
+MAX_REPOS		= 100
+MAX_USER_REPOS	= 100
+MAX_FOLLOWERS	= 100
+MAX_FOLLOWEES 	= 100
 
 
 # Database Queries
