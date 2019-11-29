@@ -12,6 +12,16 @@
 }
 
 #social-graph {
+	background-color: #fff;
+	background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
+	background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+	background-image: linear-gradient(#f8f8f8 1px, transparent 2px),
+		linear-gradient(90deg, #f8f8f8 1px, transparent 2px),
+		linear-gradient(rgba(240, 240, 240, .3) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(240, 240, 240, .3) 1px, transparent 1px);
+}
+
+#social-graph {
 	position: absolute;
 	margin: 0;
 	padding: 0;
@@ -38,4 +48,5 @@
 #social-graph-instruction {
 	position: fixed;
 	margin-top: -10px;
+	z-index: 1;
 }
