@@ -120,7 +120,7 @@ function openSocialSidebar(d) {
 
     $("#sgs-avatar").attr("src", d.AvatarUrl);
     $("#sgs-name").text(d.Username);
-    $("#sgs-bio").text(d.Bio);
+    $("#sgs-bio").html((d.Bio == null) ? "<i>No bio.</i>" : d.Bio);
     $("#sgs-profileurl").attr("href", d.Url);
     $("#sgs-f1count").text(d.FollowerCount);
     $("#sgs-f2count").text(d.FollowingCount);
@@ -207,7 +207,7 @@ function socialGraph(dataNodes, dataLinks) {
         .call(drag(simulation))
         .on("click", openSocialSidebar);
 
-    node.append("title").text(d => d.Username);
+    node.append("title").text(d => `Username: ${d.Username} \nConnections: ${d.Connectivity}`);
 
     simulation.on("tick", () => {
         link
