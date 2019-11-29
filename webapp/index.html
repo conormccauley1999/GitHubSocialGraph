@@ -39,7 +39,56 @@
 		<div class="tab-content">
 
 			<div class="tab-pane container active" id="social-graph-tab">
+
+				<span id="social-graph-instruction"><kbd>Click a node for more information</kbd></span>
+
 				<div id="social-graph"></div>
+
+				<div id="social-graph-sidebar">
+					
+					<div class="card" style="margin-right: 20px; padding: 5px;">
+						<div class="card-body">
+
+							<div class="row">
+
+								<div class="col-xs-4">
+									<img id="sgs-avatar" class="rounded" src="avatar" style="border: 0.8px solid #bbb; width: 90px; height: 90px; margin: 5px;" />
+								</div>
+
+								<div class="col-xs-8" style="padding-left: 5px; padding-top: 3px;">
+									<h4 id="sgs-name" class="card-title">Name</h4>
+					    			<p id="sgs-bio" class="card-text"></p>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-xs-4">
+									<a id="sgs-profileurl" href="#" target="_blank" class="btn btn-dark" style="margin-left: 5px; margin-top: 10px;"><i class="fab fa-github"></i> Profile</a>
+								</div>
+
+								<div class="col-xs-8" style="padding-left: 15px; margin-top: 16px;">
+									<span title="Followers">
+										<i class="fa fa-users"></i><span id="sgs-f1count" style="padding-left: 4px;">0</span>
+									</span>
+									<span style="padding-left: 5px;"></span>
+									<span title="Following">
+										<i class="fa fa-heart"></i><span id="sgs-f2count" style="padding-left: 4px;">0</span>
+									</span>
+									<span style="padding-left: 5px;"></span>
+									<span title="Repositories">
+										<i class="fa fa-bookmark"></i><span id="sgs-rcount" style="padding-left: 4px;">0</span>
+									</span>
+								</div>
+
+							</div>
+					    	
+					  </div>
+					</div>
+
+				</div>
+
 			</div>
 
 			<div class="tab-pane container fade" id="overview-tab">

@@ -21,3 +21,21 @@
 	height: 90%;
 	overflow: hidden;
 }
+
+#social-graph-sidebar {
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+	right: 0;
+	top: 10%;
+	width: 0;
+	height: 90%;
+	overflow: hidden;
+	transition: 0.5s;
+}
+
+#social-graph-instruction {
+	position: fixed;
+	margin-top: -10px;
+}

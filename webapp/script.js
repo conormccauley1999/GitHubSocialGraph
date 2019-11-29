@@ -24,9 +24,8 @@ function executeCombine(sql1, sql2, callback) {
     );
 }
 
-
 // Create the 'Most Popular Users' graph
-function mostPopularUsers(data, none) {
+function mostPopularUsers(data) {
 
     var margin = {top: 10, right: 30, bottom: 30, left: 60};
     var width = 460 - margin.left - margin.right;
@@ -114,6 +113,39 @@ function drag(simulation) {
 
 }
 
+// Shows a node's information in the sidebar
+function openSocialSidebar(d) {
+
+    console.log(d);
+
+    $("#sgs-avatar").attr("src", d.AvatarUrl);
+    $("#sgs-name").text(d.Username);
+    $("#sgs-bio").text(d.Bio);
+    $("#sgs-profileurl").attr("href", d.Url);
+    $("#sgs-f1count").text(d.FollowerCount);
+    $("#sgs-f2count").text(d.FollowingCount);
+    $("#sgs-rcount").text(d.RepositoryCount);
+
+    $("#social-graph-sidebar").width("360px");
+    $("#social-graph").css("margin-right", "360px");
+
+}
+
+// Closes the sidebar
+function closeSocialSidebar() {
+
+    $("#social-graph-sidebar").width("0px");
+    $("#social-graph").css("margin-right", "0px");
+
+}
+
+// Handle any click that isn't on a node or the sidebar
+$(document).click(function(e) {
+    if (($(e.target).closest("circle").length === 0) && ($(e.target).closest("#social-graph-sidebar").length === 0)) {
+        closeSocialSidebar();
+    }
+});
+
 // Create the 'Social Graph'
 function socialGraph(dataNodes, dataLinks) {
 
@@ -133,15 +165,17 @@ function socialGraph(dataNodes, dataLinks) {
         return range[0] + ((range[1] - range[0]) * ((v + 0.0) / (maxConnectivity - minConnectivity)));
     };
 
-    var radiusRange = [8, 30];
+    var radiusRange = [8, 26];
     var radius = function (c) { return interpolate(c, radiusRange); };
     var colorRange = [0, 1];
     var color = function (c) { return d3.interpolateYlOrRd(interpolate(c, colorRange)); };
-    var strengthRange = [80, 200];
+    var strengthRange = [100, 200];
     var strength = function(c) { return -interpolate(c, strengthRange); };
 
     $("social-graph").css("top", $("#navbar").height() + "px");
     $("social-graph").height($(window).height() - $("#navbar").height());
+    $("social-graph-sidebar").css("top", $("#navbar").height() + "px");
+    $("social-graph-sidebar").height($(window).height() - $("#navbar").height());
 
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var width = $("#social-graph").width();
@@ -155,12 +189,12 @@ function socialGraph(dataNodes, dataLinks) {
     var svg = d3.select("#social-graph").append("svg").attr("viewBox", [0, 0, width, height]);
     
     var link = svg.append("g")
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", 0.6)
+        .attr("stroke", "#BBB")
+        .attr("stroke-opacity", 0.5)
         .selectAll("line")
         .data(dataLinks)
         .join("line")
-        .attr("stroke-width", 0.8);
+        .attr("stroke-width", 1.0);
     
     var node = svg.append("g")
         .attr("stroke", "#fff")
@@ -170,7 +204,8 @@ function socialGraph(dataNodes, dataLinks) {
         .join("circle")
         .attr("r", function(d) { return radius(d.Connectivity); })
         .attr("fill",  function(d) { return color(d.Connectivity); })
-        .call(drag(simulation));
+        .call(drag(simulation))
+        .on("click", openSocialSidebar);
 
     node.append("title").text(d => d.Username);
 
