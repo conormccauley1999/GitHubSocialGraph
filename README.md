@@ -9,10 +9,7 @@
 
 ## Project Description
 
-The project consists of three components: a MySQL database, a Python crawler/scraper and a JavaScript web application. The Python crawler interrogates the GitHub API using the PyGithub library and populates the database with relevant information. The JavaScript web application graphs some of this data in the following ways:
-
-- a social network graph that shows the connections (followers/following) between GitHub users
-- to-do
+The project consists of three components: a MySQL database, a Python crawler/scraper and a JavaScript web application. The Python crawler interrogates the GitHub API using the PyGithub library and populates the database with relevant information. The JavaScript web application displays this data as a social network graph that shows the connections (followers/following) between GitHub users.
 
 ## Live Demonstration
 
@@ -49,4 +46,3 @@ Start an Apache server using XAMPP and root it in the `webapp/` folder.
 ## Reference Material
 
 - [D3.js Force-Directed Graph](https://observablehq.com/@d3/force-directed-graph)
-- [D3.js Basic Scatter Graph](https://www.d3-graph-gallery.com/graph/scatter_basic.html)
