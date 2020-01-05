@@ -13,7 +13,7 @@ The project consists of three components: a MySQL database, a Python crawler/scr
 
 ## Live Demonstration
 
-The live web application can be accessed [here](http://34.254.197.70).
+~~The live web application can be accessed [here](http://34.254.197.70).~~
 
 ## Running the Application
 
